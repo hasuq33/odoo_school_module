@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Tree view -->
+    <record id="view_school_add_student_tree" model="ir.ui.view">
+        <field name="name">school.student.tree</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="rollno" widget="handle"/>
+                <field name="gender" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_school_add_student_form" model="ir.ui.view">
+        <field name="name">school.student.form</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <header>
+                    <button name="button_in_progress" class="oe_highlight" states="draft" string="Confirm" type="object" help="Move Student in Done Stage"/> 
+                    <button name="button_cancel" states="done" string="Cancel" type="object" help="Move Student in Cancel" class="oe_highlight" />
+                    <button name="create_wizard" string="Add Teachar" class="oe_highlight" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    <button name="send_email_method" string="Send by email" type="object" class="oe_highlight"/>
+                    <button name="create_sale_order" string="Crate Sale Order" type="object" class="oe_highlight" states="done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="get_school_sales" icon="fa-pencil">
+                            <field name="sales_orders_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="sale_order_school" icon="fa-bolt">
+                            <field name="confirm_sales_order_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" widget="char_emojis" />
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"/> 
+                            <field name="rel_partner_id"/>
+                            <field name="rollno"/>
+                            <field name="gender" widget="radio"/>
+                            <field name="date_of_birth" />
+                            <field name="phone" widget="phone" />
+                            <field name="email" widget="email" />
+                            <field name="sales_school_ids"  widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="age" />
+                            <field name="teachar_name"/>
+                            <field name="marksheet" />
+                            <field name="progress_report" widget="text" />
+                            <field name="course_cat_ids" widget="many2many_tags"
+                            options="{'badge': true, 'color_field':'color'}"/>
+                            <field name="rel_user_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Add Product">
+                            <field name="product_ids">
+                                <tree editable="bottom">
+                                     <field name="product_id" required="1"/>
+                                     <field name="product_label"/>
+                                     <field name="product_quantity"/>
+                                     <field name="currency_id" invisible="1"/>
+                                     <field name="product_price" widget="monetary"/>
+                                     <field name="product_tax_ids" widget="many2many_tags"/>
+                                     <field name="product_subtotal" widget="monetary"/>
+                                </tree>
+                            </field>
+                            <group col="12" class="oe_invoice_lines_tab">
+                                <group colspan="8">
+
+                                </group>
+                                <group colspan="4" >
+                                <group class="oe_subtotal_footer oe_right">
+                                 <field name="product_non_tax_amount" readonly="true" widget="monetary"/>
+                                 <!-- <field name="product_applied_tax" readonly="true" widget="monetary"/> -->
+                             
+                                <field name="product_total_amount" readonly="true" widget="monetary" class="oe_subtotal_footer_separator"/>
+                            </group>
+                            </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                       <field name="message_follower_ids"/>
+                       <field name="activity_ids"/>
+                       <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--Pivot
+    View-->
+    <record id="view_school_add_student_pivot" model="ir.ui.view">
+        <field name="name">school.student.pivot</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <pivot string="Student Analysis">
+                <field name="name" type="row" />
+            </pivot>
+        </field>
+    </record>
+    <!-- Search View -->
+    <record id="view_school_add_student_search" model="ir.ui.view">
+        <field name="name">school.student.search</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <search string="Student">
+                <field name="name" />
+                <field name="age" />
+                <field name="rollno" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Here We Define Action for Add Student-->
+    <record id="action_school_add_students" model="ir.actions.act_window">
+        <field name="name">School Student</field>
+        <field name="res_model">school.student</field>
+        <field name="view_mode">tree,form,pivot,search,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                There Is No Record
+            </p>
+        </field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+    <record id="school_student_rule" model="ir.rule">
+        <field name="name">Student Records</field>
+        <field name="model_id" ref="model_school_student"/>
+        <field name="domain_force">[('rel_partner_id','child_of',[user.partner_id.id])]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="active" eval="False"/>  
+    </record>
+
+    <menuitem id="school_menu_root" name="School" />
+    <menuitem id="school_first_menu_root" name="Add Student" parent="school_menu_root"
+        action="action_school_add_students" />
+
+</odoo>

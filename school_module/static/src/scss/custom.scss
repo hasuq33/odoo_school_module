@@ -1,0 +1,47 @@
+h2{
+    color:rgb(208, 134, 134);
+}
+
+#myTable{
+    table-layout: fixed;
+}
+
+#tableHead{
+    background-color: rgb(215, 214, 214);
+}
+
+th{
+    
+    color: rgb(192, 44, 44);
+    font-weight: 400;
+}
+
+a{
+    color: purple;
+    text-decoration: none;
+}
+
+a:hover{
+    color: purple;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+td input,td select{
+    background-color: transparent !important;
+    border: 0 !important;
+    font-weight: 300;
+    outline: none !important;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+
+td input:focus{
+    background-color: red;
+}
+
+td img{
+    height: 31px;
+    width: 35px;
+}

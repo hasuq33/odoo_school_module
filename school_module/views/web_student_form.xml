@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="tmp_admission_form" name="Admission Form">
+             <t t-call="website.layout">
+               
+                    <div class="container">
+                        <div class="col-md-12">
+                            <form action="/admission/submit" enctype="multipart/form-data"
+                            method="post">
+                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                              <h2>Admission Form</h2>
+                         <!-- Url controller to called on the form action -->
+                         <div class="form-group">
+                            <label for="name">Name: </label>
+                            <input type="text" class="form-control" name="name" id="name" required="true" t-att-value="name"/>
+                         </div>
+                         <div class="form-group">
+                            <label for="lname">Last Name: </label>
+                            <input type="text" class="form-control" name="lname" id="lname" required="true" t-att-value="lname"/>
+                         </div>
+                         <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" required="true" />
+                            <p class="email-message" id="email-message"></p>
+                            <t t-esc="message"/>   
+                         </div>
+                         <duv class="form-group">
+                            <label for="phone">Phone No.</label>
+                            <input type="text" class="form-control" name="phone" id="phone" t-att-value="phone"/>
+                         </duv>
+                         <div class="form-group">
+                            <label for="address">Address:</label>
+                            <textarea type="text" class="form-control" name="address" id="address"><t t-esc="address"/></textarea>
+                         </div>
+                         <div class="form-group my-2">
+                           <label for="user_image">Upload Your Photo:</label>
+                           <input type="file" id="user_image" name="user_image" accept="image/*" onchange="loadFile(event)"/>
+                           <img id="output"/>   
+                         </div>
+                         <div class="form-group">
+                           <h2 id="h2Heading">Subjects</h2>
+                           <!-- <input type="button" id="btn" onclick="addRow()" class="btn btn-success my-2" value="Add Line"/> -->
+                           <input type="hidden" id="subject_count" name="subject_count" value="0"/>
+                           <table class="o_list_table table table-sm table-hover position-relative mb-0 o_list_table_ungrouped table-striped" id="myTable">
+                               <thead id="tableHead">
+                                   <tr>
+                                       <th class="align-middle o_column_sortable position-relative cursor-pointer opacity-trigger-hover">Subject</th>
+                                       <th class="align-middle o_column_sortable position-relative cursor-pointer opacity-trigger-hover">Select Priority</th>
+                                       <th></th>
+                                   </tr>
+                               </thead>
+                               <tbody id="tableBody" class="ui-sortable">
+                              </tbody>
+                           </table>
+                           <a onclick="addRow()" href="#" id="btn">Add Line</a>
+                       </div>
+                         <button type="submit" class="btn btn-primary my-2">Submit</button>
+                            </form>
+                        </div>     
+                </div>
+             </t>
+    </template>
+    <template id="temp_admission_success_form" name="Admission Form Successfully Created">
+      <t t-call="website.layout">
+                  <div class="container">
+                     <div class="col-md-12">
+                        <div class="alert alert-success">
+                           You have successfully submited application!
+                        </div>
+                </div>
+          </div>
+      </t>
+    </template>
+    
+    <data>
+        <record id="menu_admission_student" model="website.menu">
+            <field name="name">Admission Student</field>
+            <field name="url">/admission</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">61</field>
+        </record>
+    </data>
+
+</odoo>
