@@ -1,2 +1,2 @@
-from . import students,wizard,webform
+from . import students,wizard,webform,myModel
 

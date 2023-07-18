@@ -6,7 +6,7 @@
     'description': """
     This is my School Module which is used for create students.
     """,
-    'depends':['crm','sale','web','mail','account','website'],
+    'depends':['crm','sale','web','mail','account','website','auth_signup'],
     
     'data':[
         'security/ir.model.access.csv',

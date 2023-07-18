@@ -4,16 +4,16 @@ odoo.define('school_module.checkemail', function (require) {
     var publicWidget = require('web.public.widget');
     var ajax = require('web.ajax');
 
-    publicWidget.registry.checkemail = publicWidget.Widget.extend({
+    publicWidget.registry.checeEmail = publicWidget.Widget.extend({
         selector: '#email',
         events: {
             'blur': '_onEmailBlur',
         },
-        _onEmailBlur: function (ev) {
-            var email = ev.target.value;
-            this._checkEmailExists(email);
+        _onEmailBlur: function (event) {
+            var email = event.target.value;
+            this.checkEmailExists(email);
         },
-        _checkEmailExists: function (email) {
+        checkEmailExists: function (email) {
             return ajax.jsonRpc('/admission/check_email', 'call', {
                 email: email
             }).then(function (response) {
