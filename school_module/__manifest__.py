@@ -17,12 +17,14 @@
         'views/admission_detail.xml',
         'report/school_student_report.xml',
         'report/school_student_template.xml',
+        'report/special_report.xml',
      
     ],
     'assets':{
         'web.assets_frontend': [
             '/school_module/static/src/js/addline.js',
             '/school_module/static/src/js/checkemail.js',
+            # 'school_module/static/src/js/myMedia.js',
             '/school_module/static/src/scss/custom.scss',
         ],
     },

@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_user_partner_image" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[@name='contact_addresses']" position="after">
+                <page string="Partner's Media">
+                    <field name="media_ids">
+                        <kanban>
+                            <field name="media" widget="image" string="Media"/>
+                            <field name="name"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div class="oe_kanban_content">
+                                        <div class="oe_kanban_image">
+                                            <img t-att-src="kanban_image('media.model', 'media', record.id.value)" class="oe_kanban_image_img" alt="Image"/>
+                                        </div>
+                                        <div class="oe_kanban_details">
+                                            <div class="oe_kanban_title">
+                                                <t t-esc="record.name.value"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -7,7 +7,7 @@ odoo.define('school_module.checkemail', function (require) {
     publicWidget.registry.checeEmail = publicWidget.Widget.extend({
         selector: '#email',
         events: {
-            'blur': '_onEmailBlur',
+            'input': '_onEmailBlur',
         },
         _onEmailBlur: function (event) {
             var email = event.target.value;

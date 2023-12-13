@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="my_website_template" name="New Home page" inherit_id="website.homepage">
+        <xpath expr="//div[@id='wrap']" position="replace">
+            <!-- Display Media Items -->
+            <div class="container js_media_div">
+                <select class="form-select my-2" aria-label="Default select example" id="media_type">
+                    <option selected="selected">Select...</option>
+                    <option value="Image">Image</option>
+                    <option value="Video">Video</option>
+                  </select>
+                  <t t-foreach="media_records" t-as="media">
+                    <div class="media-item image js_media_image">
+                    <t t-if="media.media_type == 'Image'">
+                           <img t-att-src="image_data_uri(media.media)" alt="Img"/>
+                        </t>
+                    </div>
+             
+                    <div class="media-item video js_media_video">
+                    <t t-if="media.media_type == 'Video'">
+                            <video controls="true"  style="max-width: 100%; max-height: 100%;">
+                                <source t-att-src="image_data_uri(media.media)"/>
+                            </video>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <template id="psw_input_media" name="Check Psw">
+        <t t-call="website.layout">
+       <div class="container">
+        <form method="post" enctype="multipart/form-data" action="/">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="form-group my-2">
+                <label for="auto_psw">Enter Your Recieved Password</label>
+                <input type="password" id="auto_psw" name="auto_psw" class="form form-control"/>  
+              </div>
+              <button type="submit" class="btn btn-primary my-2">Submit</button>
+        </form>
+       </div>
+        </t>
+    </template>
+    <template id="temp_upload_media" name="Upload Media">
+        <t t-call="website.layout">
+            <div class="container">
+                <h2>Upload Media File</h2>
+                <form method="post" enctype="multipart/form-data" action="/upload-media/submit">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="form-group my-2">
+                        <label for="user_image">Upload Your Photo:</label>
+                        <input type="file" id="user_image" name="user_image" class="form form-control" accept="image/*" multiple="true"/>  
+                      </div>
+                      <div class="form-group my-2">
+                        <label for="user_video">Upload Your Video:</label>
+                        <input type="file" id="user_video" name="user_video" class="form form-control" accept="video/*" multiple="true"/>  
+                      </div>
+                      <button type="submit" class="btn btn-primary my-2">Submit</button>
+                </form>
+            </div>
+        </t>
+    </template>
+    
+    <data>
+        <record id="menu_user_upload_media" model="website.menu">
+            <field name="name">Upload</field>
+            <field name="url">/upload-media</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">102</field>
+        </record>
+    </data>
+</odoo>

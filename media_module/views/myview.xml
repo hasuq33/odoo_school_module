@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_user_tree" model="ir.ui.view">
+        <field name="name">res.user.tree</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_user_form" model="ir.ui.view">
+        <field name="name">res.user.form</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <form string="Users">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+<!-- Here We Define Action for Add Student-->
+<record id="action_add_user_media" model="ir.actions.act_window">
+  <field name="name">User's Media</field>
+  <field name="res_model">res.users</field>
+  <field name="view_mode">tree,form</field>
+  <field name="help" type="html">
+    <p class="o_view_nocontent_empty_folder">
+        There Is No Record
+    </p>
+</field>
+</record>
+
+<menuitem id="media_menu_root" name="Media" sequence="11"/>
+<menuitem id="media_first_menu" name="Add Media" parent="media_menu_root"
+action="action_add_user_media"/>
+</odoo>

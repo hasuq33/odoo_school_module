@@ -4,3 +4,6 @@ access_test_model_wizard,test.model.wizard,model_test_model_wizard,base.group_us
 access_school_product,school.product,model_school_product,base.group_user,1,1,1,1
 access_admission_student,admission.student,model_admission_student,base.group_user,1,1,1,1
 access_admission_student_line,admission.student.line,model_admission_student_line,base.group_user,1,1,1,1
+
+
+

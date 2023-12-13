@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Inherited Contact Form View -->
+        <record model="ir.ui.view" id="view_contact_form_inherit">
+            <field name="name">contacts.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='website']" position="before">
+                    <field name="is_vendor" />
+                    </xpath> 
+            </field>
+        </record>
+
+        <!-- Vendor Action -->
+        <record model="ir.actions.act_window" id="action_vendor_contact">
+            <field name="name">Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_vendor', '=', True)]</field>
+            <field name="context">{'default_is_vendor': True,'default_name':'Harshiv Joshi'}</field>
+        </record>
+
+        <!-- Vendor Menu Item -->
+        <menuitem id="menu_vendor" name="Vendor" parent="contacts.menu_contacts" action="action_vendor_contact"/>
+    </data>
+</odoo>

@@ -1,6 +1,19 @@
 from odoo import api, fields, models
 import datetime
 
+
+class SpecialAbstarctReport(models.AbstractModel):
+    _name = "report.school_module.fv_special_report"
+
+    @api.model
+    def _get_report_values(self,docids,data=None):
+        records = self.env['school.student'].search([])
+        return {
+            'doc_ids': docids,
+            'doc_model': 'school.student',
+            'docs': records,
+        }
+
 # This Model Is about Student's Details
 class SchoolModel(models.Model):
     _name = "school.student"

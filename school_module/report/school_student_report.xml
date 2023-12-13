@@ -11,4 +11,13 @@
       <field name="binding_type">report</field>
     </record>
 </data>
+<record id="special_report" model="ir.actions.report">
+  <field name="name">Special Model</field>
+  <field name="model">school.student</field>
+  <field name="report_type">qweb-pdf</field>
+  <field name="report_name">school_module.fv_special_report</field>
+  <field name="report_file">school_module.fv_special_report</field>
+  <field name="binding_model_id" ref="school_module.model_school_student"/>
+  <field name="binding_type">action</field>
+</record>
 </odoo>
